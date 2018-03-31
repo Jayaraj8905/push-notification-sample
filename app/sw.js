@@ -3,6 +3,7 @@
 'use strict';
 
 self.addEventListener('push', function(event) {
+    alert('push received');
     console.log('[Service Worker] Push Received.');
     console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
     
