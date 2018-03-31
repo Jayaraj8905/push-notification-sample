@@ -21,9 +21,10 @@
 
 'use strict';
 
-const applicationServerPublicKey = 'BKmqtoUkXK0p_TyB6wgakfRSjTJnESCjRndhDSRBS3rwGwDFT35tyoPU6nIRBzUOoK7TG8BMNRzkdYdNiNTrSZc';
+const applicationServerPublicKey = 'BO0F0XHp7t7jaqtikbJ5jKS4am5ke3EyIwdA5_sXKBZEmKsm-JDuN_i1otDbpOkj6phMBspg4RpGx6iJrho7goI';
 
 const pushButton = document.querySelector('.js-push-btn');
+const notificationArea = document.querySelector('.js-notification-area');
 
 let isSubscribed = false;
 let swRegistration = null;
@@ -56,6 +57,14 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
   })
   .catch(function(error) {
     console.error('Service Worker Error', error);
+  });
+
+   // Handler for messages coming from the service worker
+  navigator.serviceWorker.addEventListener('message', function(event){
+      console.log("Client 1 Received Message: " + event.data);
+
+      notificationArea.textContent = "Notification from Admin:::: " + event.data;
+      // event.ports[0].postMessage("Client 1 Says 'Hello back!'");
   });
 } else {
   console.warn('Push messaging is not supported');

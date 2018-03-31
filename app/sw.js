@@ -24,10 +24,19 @@
 self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
-  
-    const title = 'Push Codelab';
+    
+    const msg = event.data.text();
+    
+    clients.matchAll().then(clients => {
+        clients.forEach(client => {
+            client.postMessage("SW Says: '"+msg+"'");
+            // send_message_to_client(client, msg).then(m => console.log("SW Received Message: "+m));
+        })
+    })
+
+    const title = 'Notification from admin';
     const options = {
-      body: 'Yay it works.',
+      body: event.data.text(),
       icon: 'images/icon.png',
       badge: 'images/badge.png'
     };
@@ -41,6 +50,6 @@ self.addEventListener('notificationclick', function(event) {
     event.notification.close();
   
     event.waitUntil(
-      clients.openWindow('https://developers.google.com/web/')
+      clients.openWindow('http://127.0.0.1:8080/')
     );
 });
