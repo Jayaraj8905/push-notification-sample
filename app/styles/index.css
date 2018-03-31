@@ -19,11 +19,15 @@ header {
   color: white;
 }
 
-main, header > h1 {
+main, header > h1, header > p {
   padding: 0 16px;
   max-width: 760px;
   box-sizing: border-box;
   margin: 0 auto;
+}
+
+header > p {
+  min-height: 40px;
 }
 
 main {
