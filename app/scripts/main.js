@@ -7,6 +7,9 @@ const applicationServerPublicKey = 'BO0F0XHp7t7jaqtikbJ5jKS4am5ke3EyIwdA5_sXKBZE
 const pushButton = document.querySelector('.js-push-btn');
 const notificationArea = document.querySelector('.js-notification-area');
 
+const subscriptionJson = document.querySelector('.js-subscription-json');
+const subscriptionDetails = document.querySelector('.js-subscription-details');
+
 let isSubscribed = false;
 let swRegistration = null;
 
@@ -70,6 +73,7 @@ function initializeUI() {
 
     if (isSubscribed) {
       console.log('User IS subscribed.');
+      showSubscriptionJsonInUI(subscription)
     } else {
       console.log('User is NOT subscribed.');
     }
@@ -118,12 +122,11 @@ function updateBtn() {
 }
 
 function updateSubscriptionOnServer(subscription) {
-  // TODO: Send subscription to application server
+  // TODO: Send subscription to application server  
+  showSubscriptionJsonInUI(subscription);
+}
 
-  const subscriptionJson = document.querySelector('.js-subscription-json');
-  const subscriptionDetails =
-    document.querySelector('.js-subscription-details');
-
+function showSubscriptionJsonInUI(subscription) {
   if (subscription) {
     subscriptionJson.textContent = JSON.stringify(subscription);
     subscriptionDetails.classList.remove('is-invisible');
