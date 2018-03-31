@@ -28,20 +28,22 @@ self.addEventListener('push', function(event) {
     const msg = event.data.text();
     
     clients.matchAll().then(clients => {
-        clients.forEach(client => {
-            client.postMessage("SW Says: '"+msg+"'");
-            // send_message_to_client(client, msg).then(m => console.log("SW Received Message: "+m));
-        })
+        if (clients.length) {
+            clients.forEach(client => {
+                client.postMessage(msg);
+            })
+        } else {            
+            const title = 'Notification from admin';
+            const options = {
+                body: msg,
+                icon: 'images/icon.png',
+                badge: 'images/badge.png'
+            };
+        
+            event.waitUntil(self.registration.showNotification(title, options));
+        }
+        
     })
-
-    const title = 'Notification from admin';
-    const options = {
-      body: event.data.text(),
-      icon: 'images/icon.png',
-      badge: 'images/badge.png'
-    };
-  
-    event.waitUntil(self.registration.showNotification(title, options));
 });
 
 self.addEventListener('notificationclick', function(event) {
