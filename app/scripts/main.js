@@ -2,6 +2,8 @@
 
 'use strict';
 
+alert('sdfs');
+
 const applicationServerPublicKey = 'BO0F0XHp7t7jaqtikbJ5jKS4am5ke3EyIwdA5_sXKBZEmKsm-JDuN_i1otDbpOkj6phMBspg4RpGx6iJrho7goI';
 
 const pushButton = document.querySelector('.js-push-btn');
